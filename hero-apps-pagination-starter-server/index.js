@@ -50,7 +50,13 @@ const appsCollection = database.collection("apps");
 
 app.get("/apps", async (req, res) => {
   try {
-    const apps = await appsCollection.find().toArray();
+    const {limit=0,skip=0} = req.query;
+    console.log(limit)
+    const apps = await appsCollection.find()
+    .limit(Number(limit)) //valu koyta dakhabe ta nirtharon kore dite hole limit use korte hobe r limit ta pabo req.query theke
+    .skip(Number(skip))
+    .project({description:0,ratings:0}) //project use to control data send 
+    .toArray();  
     res.send(apps);
   } catch (error) {
     console.log(error);
