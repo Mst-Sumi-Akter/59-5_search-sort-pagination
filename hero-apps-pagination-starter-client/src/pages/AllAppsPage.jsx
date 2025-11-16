@@ -83,7 +83,7 @@ const AllAppsPage = () => {
         </form>
 
         <div className="">
-          <select className="select bg-white">
+          <select onChange={handleSelect} className="select bg-white">
             <option selected disabled={true}>
               Sort by <span className="text-xs">R / S / D</span>
             </option>
