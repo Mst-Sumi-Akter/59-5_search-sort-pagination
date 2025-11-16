@@ -56,8 +56,12 @@ app.get("/apps", async (req, res) => {
     .limit(Number(limit)) //valu koyta dakhabe ta nirtharon kore dite hole limit use korte hobe r limit ta pabo req.query theke
     .skip(Number(skip))
     .project({description:0,ratings:0}) //project use to control data send 
-    .toArray();  
-    res.send(apps);
+    .toArray(); 
+    
+    const count = await appsCollection.countDocuments();
+
+
+    res.send({apps, total: count});
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
